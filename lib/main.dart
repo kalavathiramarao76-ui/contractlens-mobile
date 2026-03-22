@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'screens/splash_screen.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
   runApp(const ContractLensApp());
 }
-
 class ContractLensApp extends StatelessWidget {
   const ContractLensApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -41,14 +41,11 @@ class ContractLensApp extends StatelessWidget {
           color: const Color(0xFF141018),
           elevation: 4,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        ),
         navigationBarTheme: NavigationBarThemeData(
           backgroundColor: const Color(0xFF110D14),
           indicatorColor: const Color(0xFFE53935).withOpacity(0.2),
           labelTextStyle: WidgetStateProperty.all(
             const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
-          ),
-        ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFE53935),
@@ -57,35 +54,24 @@ class ContractLensApp extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-          ),
-        ),
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
           fillColor: const Color(0xFF141018),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: const BorderSide(color: Color(0xFF2A1F30)),
-          ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Color(0xFF2A1F30)),
-          ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
             borderSide: const BorderSide(color: Color(0xFFE53935), width: 2),
-          ),
           hintStyle: TextStyle(color: Colors.grey[600]),
           prefixIconColor: const Color(0xFFFF5252),
-        ),
         textTheme: const TextTheme(
           headlineLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
           headlineMedium: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
           bodyLarge: TextStyle(color: Color(0xFFBDB0C7)),
           bodyMedium: TextStyle(color: Color(0xFF9688A3)),
-        ),
         dividerColor: const Color(0xFF2A1F30),
       ),
       home: const SplashScreen(),
     );
   }
-}
